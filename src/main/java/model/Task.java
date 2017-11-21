@@ -6,6 +6,12 @@ public class Task {
     private String task;
     private String dueDate;
     private String category;
+    private int userId;
+    private int priority;
+    private boolean complete;
+
+    public Task() {
+    }
 
     public Task(int id, String task, String dueDate, String category) {
         this.id = id;
@@ -44,5 +50,29 @@ public class Task {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }
