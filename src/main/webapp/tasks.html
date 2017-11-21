@@ -118,7 +118,7 @@ if (window.indexedDB) {
 <script id="taskRow" type="text/x-jQuery-tmpl">
 <tr>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
-	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
+	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${dueDate}">${dueDate}</time></td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${priority}</td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${userId}</td>
