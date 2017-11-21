@@ -4,7 +4,7 @@ public class Task {
 
     private int id;
     private String task;
-    private String requredBy;
+    private String requiredBy;
     private String category;
     private int userId;
     private int priority;
@@ -16,7 +16,7 @@ public class Task {
     public Task(int id, String task, String dueDate, String category) {
         this.id = id;
         this.task = task;
-        this.requredBy = dueDate;
+        this.requiredBy = dueDate;
         this.category = category;
     }
 
@@ -36,12 +36,12 @@ public class Task {
         this.task = task;
     }
 
-    public String getRequredBy() {
-        return requredBy;
+    public String getRequiredBy() {
+        return requiredBy;
     }
 
-    public void setRequredBy(String requredBy) {
-        this.requredBy = requredBy;
+    public void setRequiredBy(String requredBy) {
+        this.requiredBy = requredBy;
     }
 
     public String getCategory() {

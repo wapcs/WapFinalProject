@@ -38,42 +38,49 @@ public class TaskServlet extends HttpServlet {
         TaskDAO taskDAO = new TaskDAO();
         List<Task> taskList = null;
         String JSONtasks;
+        String sortType="";
         String reqType = request.getParameter("method");
+        if(request.getParameter("sortType")!=null)
+        {
+            sortType = request.getParameter("sortType");
+        }
         if ("add".equals(reqType)) {
             System.out.println("add method called");
             Task task = new Task();
             task.setTask(request.getParameter("task"));
-            task.setRequredBy(request.getParameter("requiredBy"));
+            task.setRequiredBy(request.getParameter("requiredBy"));
             task.setCategory(request.getParameter("category"));
             task.setPriority(Integer.parseInt(request.getParameter("priority")));
             task.setUserId(Integer.parseInt(request.getParameter("userId")));
             taskDAO.addTask(task);
-            taskList = taskDAO.getAllTask();
+            taskList = taskDAO.getAllTask(sortType);
             JSONtasks = new Gson().toJson(taskList);
         } else if ("edit".equals(reqType)) {
             Task task = new Task();
             task.setId(Integer.parseInt(request.getParameter("id")));
             task.setTask(request.getParameter("task"));
-            task.setRequredBy(request.getParameter("requiredBy"));
+            task.setRequiredBy(request.getParameter("requiredBy"));
             task.setCategory(request.getParameter("category"));
             task.setPriority(Integer.parseInt(request.getParameter("priority")));
             task.setUserId(Integer.parseInt(request.getParameter("userId")));
             taskDAO.updateTask(task);
-            taskList = taskDAO.getAllTask();
+            taskList = taskDAO.getAllTask(sortType);
             JSONtasks = new Gson().toJson(taskList);
         } else if ("delete".equals(reqType)) {
             taskDAO.deleteTask(Integer.parseInt(request.getParameter("id")));
-            taskList = taskDAO.getAllTask();
+            taskList = taskDAO.getAllTask(sortType);
             JSONtasks = new Gson().toJson(taskList);
         } else if ("complete".equals(reqType)) {
             taskDAO.completeTask(Integer.parseInt(request.getParameter("id")));
-            taskList = taskDAO.getAllTask();
+            taskList = taskDAO.getAllTask(sortType);
             JSONtasks = new Gson().toJson(taskList);
         } else if ("getTask".equals(reqType)) {
             Task task = taskDAO.getTask(Integer.parseInt(request.getParameter("id")));
             JSONtasks = new Gson().toJson(task);
         } else {
-            taskList = taskDAO.getAllTask();
+
+            taskList = taskDAO.getAllTask(sortType);
+            System.out.println("taskList="+taskList.size()+" sort:"+sortType+" method:"+request.getParameter("method"));
             JSONtasks = new Gson().toJson(taskList);
         }
 

@@ -23,7 +23,7 @@ public class TaskDAO {
         DataSource dataSource;
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            Date parsed = format.parse(task.getRequredBy());
+            Date parsed = format.parse(task.getRequiredBy());
             conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO TASKS(name, dueDate, category, userId, priority, status) values(?,?,?,?,?,?)");
             statement.setString(1, task.getTask());
@@ -65,7 +65,7 @@ public class TaskDAO {
         try {
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            Date parsed = format.parse(task.getRequredBy());
+            Date parsed = format.parse(task.getRequiredBy());
 
             PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set name=?, dueDate=?, category=?, userId=?, priority=?, status=? where id=?");
             statement.setString(1, task.getTask());
@@ -115,8 +115,7 @@ public class TaskDAO {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                System.out.println(rs.getString("name"));
-                task.setRequredBy(rs.getString("dueDate"));
+                task.setRequiredBy(rs.getString("dueDate"));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
@@ -132,20 +131,25 @@ public class TaskDAO {
         return task;
     }
 
-    public List<Task> getAllTask() {
+    public List<Task> getAllTask(String sortType) {
         Connection conn = null;
         DataSource dataSource;
         Task task = null;
         List<Task> tasks = new ArrayList<>();
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("Select * from tasks");
+            PreparedStatement statement = conn.prepareStatement("Select * from tasks order by ?");
+            System.out.println("sortType="+sortType);
+            if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
+                sortType ="priority";
+            System.out.println("sortType1="+sortType);
+            statement.setString(1,sortType);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                task.setRequredBy(rs.getString("dueDate"));
+                task.setRequiredBy(rs.getString("dueDate"));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
@@ -162,32 +166,4 @@ public class TaskDAO {
         return tasks;
     }
 
-    public List<Task> getTeamTasks() {
-        Connection conn = null;
-        DataSource dataSource;
-        Task task = null;
-        List<Task> tasks = new ArrayList<>();
-        try {
-            conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("Select * from tasks where ");
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                task = new Task();
-                task.setId(rs.getInt("id"));
-                task.setTask(rs.getString("name"));
-                task.setRequredBy(rs.getString("dueDate"));
-                task.setCategory(rs.getString("category"));
-                task.setUserId(rs.getInt("userId"));
-                task.setPriority(rs.getInt("priority"));
-                tasks.add(task);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-
-        return tasks;
-    }
 }

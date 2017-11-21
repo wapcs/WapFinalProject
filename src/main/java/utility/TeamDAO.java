@@ -131,7 +131,7 @@ public class TeamDAO {
                 teamTask = new TeamTask();
                 teamTask.setTaskId(rs.getInt("id"));
                 teamTask.setTask(rs.getString("name"));
-                teamTask.setDueDate(rs.getString("dueDate"));
+                teamTask.setRequiredBy(rs.getString("dueDate"));
                 teamTask.setCategory(rs.getString("category"));
                 teamTask.setUserId(rs.getInt("userId"));
                 teamTask.setPriority(rs.getInt("priority"));

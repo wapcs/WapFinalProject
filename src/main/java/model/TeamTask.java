@@ -3,7 +3,7 @@ package model;
 public class TeamTask {
     private int taskId;
     private String task;
-    private String dueDate;
+    private String requiredBy;
     private String category;
     private int userId;
     private int priority;
@@ -28,8 +28,8 @@ public class TeamTask {
         this.task = task;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setRequiredBy(String dueDate) {
+        this.requiredBy = dueDate;
     }
 
     public void setCategory(String category) {
@@ -61,8 +61,8 @@ public class TeamTask {
         return task;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getRequiredBy() {
+        return requiredBy;
     }
 
     public String getCategory() {
