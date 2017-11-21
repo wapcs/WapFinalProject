@@ -19,9 +19,17 @@ import java.util.List;
 public class TaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("PostMethod Called");
+        PrintWriter out = response.getWriter();
         TaskDAO taskDAO = new TaskDAO();
-        Task task = taskDAO.getTask(1);
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        Task task = taskDAO.getTask(id);
         System.out.println("taskName:" + task.getTask());
+        String JSONtasks;
+        JSONtasks = new Gson().toJson(task);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.write(JSONtasks);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +39,7 @@ public class TaskServlet extends HttpServlet {
         List<Task> taskList = null;
         String reqType = request.getParameter("method");
         if ("add".equals(reqType)) {
+            System.out.println("add method called");
             Task task = new Task();
             task.setTask(request.getParameter("task"));
             task.setDueDate(request.getParameter("requiredBy"));
@@ -38,6 +47,7 @@ public class TaskServlet extends HttpServlet {
             task.setPriority(Integer.parseInt(request.getParameter("priority")));
             task.setUserId(Integer.parseInt(request.getParameter("userId")));
             taskDAO.addTask(task);
+            taskList = taskDAO.getAllTask();
         } else if ("edit".equals(reqType)) {
             Task task = new Task();
             task.setId(Integer.parseInt(request.getParameter("id")));

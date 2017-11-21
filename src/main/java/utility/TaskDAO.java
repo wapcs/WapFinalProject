@@ -94,7 +94,7 @@ public class TaskDAO {
         try {
             DBConnection dbConnection = new DBConnection();
             conn = dbConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set complete=? where id=?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set status=? where id=?");
             statement.setBoolean(1, true);
             statement.setInt(2, taskId);
             statement.executeUpdate();
@@ -125,6 +125,7 @@ public class TaskDAO {
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
+                task.setComplete(rs.getBoolean("status"));
             }
 
         } catch (SQLException e) {
@@ -154,6 +155,7 @@ public class TaskDAO {
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
+                task.setComplete(rs.getBoolean("status"));
                 tasks.add(task);
             }
 
