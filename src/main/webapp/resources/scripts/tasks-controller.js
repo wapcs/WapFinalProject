@@ -146,12 +146,17 @@ tasksController = function() {
 					function(evt) {
 						var data = {
 							id: $(evt.target).data().taskId,
-							method: "edit"
+							method: "getTask"
 						};
 						$(taskPage).find('#taskCreation').removeClass('not');
-                        retrieveTaskById(data, function(task) {
+
+                        retrieveTasksServer(data, function(task) {
+                        console.log("TASK in edit row");
                             $(taskPage).find('#taskForm').fromObject(task);
-                        });
+						});
+                        // retrieveTaskById(data, function(task) {
+                        //     $(taskPage).find('#taskForm').fromObject(task);
+                        // });
 						// storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
 						// 	$(taskPage).find('#taskForm').fromObject(task);
 						// }, errorLogger);

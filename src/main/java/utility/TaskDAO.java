@@ -22,8 +22,9 @@ public class TaskDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(task.getRequiredBy());
+            System.out.println("Parsed " + parsed);
             conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO TASKS(name, dueDate, category, userId, priority, status) values(?,?,?,?,?,?)");
             statement.setString(1, task.getTask());
