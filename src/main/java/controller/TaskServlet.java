@@ -81,6 +81,7 @@ public class TaskServlet extends HttpServlet {
 
             taskList = taskDAO.getAllTask(sortType);
             System.out.println("taskList="+taskList.size()+" sort:"+sortType+" method:"+request.getParameter("method"));
+            System.out.println();
             JSONtasks = new Gson().toJson(taskList);
         }
 

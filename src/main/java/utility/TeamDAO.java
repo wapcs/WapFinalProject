@@ -124,6 +124,7 @@ public class TeamDAO {
         List<TeamTask> teamTasks = new ArrayList<>();
         try {
             conn = DBConnection.getCon();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement statement = conn.prepareStatement("  Select t.*, t.id taskId, tm.id teamId ,u.username , u.userId  from tasks t, team tm, taskdb.user u, teammember m where t.userId =u.userId and tm.id = m.teamId and u.userId=m.userId and tm.id=?");
             statement.setInt(1, teamId);
             ResultSet rs = statement.executeQuery();
@@ -131,7 +132,7 @@ public class TeamDAO {
                 teamTask = new TeamTask();
                 teamTask.setTaskId(rs.getInt("id"));
                 teamTask.setTask(rs.getString("name"));
-                teamTask.setRequiredBy(rs.getString("dueDate"));
+                teamTask.setRequiredBy(format.format(rs.getDate("dueDate")));
                 teamTask.setCategory(rs.getString("category"));
                 teamTask.setUserId(rs.getInt("userId"));
                 teamTask.setPriority(rs.getInt("priority"));

@@ -108,6 +108,7 @@ public class TaskDAO {
         try {
             conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from tasks where id=?");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             statement.setInt(1, taskid);
             ResultSet rs = statement.executeQuery();
 
@@ -115,7 +116,7 @@ public class TaskDAO {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                task.setRequiredBy(rs.getString("dueDate"));
+                task.setRequiredBy(format.format(rs.getDate("dueDate")));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
@@ -138,6 +139,7 @@ public class TaskDAO {
         List<Task> tasks = new ArrayList<>();
         try {
             conn = DBConnection.getCon();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement statement = conn.prepareStatement("Select * from tasks order by ?");
             System.out.println("sortType="+sortType);
             if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
@@ -149,7 +151,7 @@ public class TaskDAO {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                task.setRequiredBy(rs.getString("dueDate"));
+                task.setRequiredBy(format.format(rs.getDate("dueDate")));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));

@@ -226,13 +226,27 @@ tasksController = function() {
 					}
                 });
 
-		        $("#sortDue").click(function (evt) {
+                $("#sortDue").click(function (evt) {
                     console.log("sortDue");
                     console.log($(taskPage).find('#tblTasks tbody tr'));
-				});
+                    var data = {
+                        sortType: "dueDate"
+                    }
+                    retrieveTasksServer(data, function(tasks) {
+                        $(taskPage).find('#tblTasks tbody').empty();
+                        tasksController.loadServerTasks(tasks);
+                    });
+                });
 
                 $("#sortPriority").click(function (evt) {
                     console.log($(taskPage).find('#tblTasks tbody tr'));
+                    var data = {
+                        sortType: "priority"
+                    }
+                    retrieveTasksServer(data, function(tasks) {
+                        $(taskPage).find('#tblTasks tbody').empty();
+                        tasksController.loadServerTasks(tasks);
+                    });
                 });
 
             	initialised = true;
