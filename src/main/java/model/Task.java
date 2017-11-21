@@ -50,8 +50,8 @@ public class Task {
         return requiredBy;
     }
 
-    public void setRequiredBy(String requredBy) {
-        this.requiredBy = requredBy;
+    public void setRequiredBy(String requiredBy) {
+        this.requiredBy = requiredBy;
     }
 
     public String getCategory() {

@@ -1,6 +1,7 @@
 tasksController = function() { 
 	
 	function errorLogger(errorCode, errorMessage) {
+	    console.log(errorCode, errorMessage);
 		console.log(errorCode +':'+ errorMessage);
 	}
 	
@@ -27,10 +28,6 @@ tasksController = function() {
             "type": "get",
             dataType: "json",
 			data: data
-            // "data": {
-            //     "first": first,
-            //     "last": last
-            // }
         }).success(successCallback)
 			.fail(function(err) {
 				console.log("ERRORO ON jsp ", err);
@@ -44,8 +41,18 @@ tasksController = function() {
     			id: id
 			}
 		}).success(successCallback)
-			.fail(errorLogger)
+			.fail(errorLogger);
 	};
+    var fetchUser = function(data, successCallback) {
+        $.ajax("UserServlet", {
+            "type": "get",
+            dataType: "json",
+            data: data
+        }).success(successCallback)
+            .fail(function(err) {
+                console.log("ERRORO ON jsp ", err);
+            }); //need reference to the tasksController object
+    };
 
     /**
 	 * 111917kl
@@ -98,7 +105,7 @@ tasksController = function() {
 				
 				$(taskPage).find('#btnAddTask').click(function(evt) {
 					evt.preventDefault();
-                    tasksController.loadUsers();
+					fetchUser("", tasksController.loadUsers);
 					$(taskPage).find('#taskCreation').removeClass('not');
 				});
 
@@ -151,9 +158,14 @@ tasksController = function() {
 						$(taskPage).find('#taskCreation').removeClass('not');
 
                         retrieveTasksServer(data, function(task) {
-                        console.log("TASK in edit row");
+                        console.log("TASK in edit row", task);
+                            // fetchUser("", function (users, tasks) {
+                        	 //    tasksController.loadUsers(users);
+                            // });
                             $(taskPage).find('#taskForm').fromObject(task);
 						});
+
+
                         // retrieveTaskById(data, function(task) {
                         //     $(taskPage).find('#taskForm').fromObject(task);
                         // });
@@ -201,7 +213,12 @@ tasksController = function() {
 						console.log("before toObject", $(taskPage).find('#taskForm'));
 						var task = $(taskPage).find('#taskForm').toObject();
 						console.log(task);
-                        task.method="add";
+                        if(task.id !== "") {
+                            task.method = "edit";
+						}
+						else {
+                            task.method="add";
+						}
                         retrieveTasksServer(task, function(tasks) {
                             $(taskPage).find('#tblTasks tbody').empty();
                             tasksController.loadServerTasks(tasks);
@@ -222,12 +239,18 @@ tasksController = function() {
 					evt.preventDefault();
 					if ($(taskPage).find('#userForm').valid()) {
                         var user = $(taskPage).find('#userForm').toObject();
-                        storageEngine.save('user', user, function() {
-                            alert("is called");
-                            tasksController.loadUsers();
+                        user.method = "add";
+                        fetchUser(user, function(users) {
+                            tasksController.loadUsers(users);
                             $(taskPage).find('#userForm').fromObject({});
                             $(taskPage).find('#userCreation').addClass('not');
-                        }, errorLogger);
+                        });
+                        // storageEngine.save('user', user, function() {
+                        //     alert("is called");
+                        //     tasksController.loadUsers();
+                        //     $(taskPage).find('#userForm').fromObject({});
+                        //     $(taskPage).find('#userCreation').addClass('not');
+                        // }, errorLogger);
 					}
                 });
 
@@ -290,53 +313,18 @@ tasksController = function() {
 
 			})
 		},
-		// loadTasks : function() {
-         //    // $(taskPage).find('#tblTasks tbody').empty();
-         //    // $.each(tasks, function (index, task) {
-         //    //     if (!task.complete) {
-         //    //         task.complete = false;
-         //    //     }
-         //    //     $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-         //    //     taskCountChanged();
-         //    //     console.log('about to render table with server tasks');
-         //    //     renderTable(); // --skip for now, this just sets style class for overdue tasks 111917kl
-         //    // });
-		// 	$(taskPage).find('#tblTasks tbody').empty();
-		// 	retrieveTasksServer("", function(tasks) {
-		// 	    console.log("TASKS FROM THE SERVER");
-         //            tasks.sort(function (o1, o2) {
-         //                return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-         //            });
-         //            $.each(tasks, function (index, task) {
-         //                if (!task.complete) {
-         //                    task.complete = false;
-         //                }
-         //                $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-         //                taskCountChanged();
-         //                renderTable();
-         //            });
-         //        });
-		// 	// storageEngine.findAll('task', function(tasks) {
-		// 	// 	tasks.sort(function(o1, o2) {
-		// 	// 		return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-		// 	// 	});
-		// 	// 	$.each(tasks, function(index, task) {
-		// 	// 		if (!task.complete) {
-		// 	// 			task.complete = false;
-		// 	// 		}
-		// 	// 		$('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-		// 	// 		taskCountChanged();
-		// 	// 		renderTable();
-		// 	// 	});
-		// 	// }, errorLogger);
-		// },
-		loadUsers: function () {
-			storageEngine.findAll('user', function(users) {
-				$.each(users, function(index, user) {
-                    $("#taskForm select").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
-				});
-			}, errorLogger);
-        },
+        loadInitUser: function() {
+			fetchUser("", function(users) {
+				tasksController.loadUsers(users);
+			});
+
+		},
+		loadUsers: function (users) {
+			$("#taskForm #userSelect").empty();
+            $.each(users, function(index, user) {
+                $("#taskForm #userSelect").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
+            });
+        }
 
 	} 
 }();

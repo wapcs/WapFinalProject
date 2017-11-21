@@ -77,7 +77,6 @@
 	</section>
     <section id="userCreation" class="not">
 		<form id="userForm">
-			User id: <input type="text" name="userId">
 			User name: <input type="text" name="userName">
 			<input type="submit" id="saveUser" value="Save user">
 		</form>
@@ -91,6 +90,7 @@ function initScreen() {
 	$(document).ready(function() {
 		tasksController.init($('#taskPage'), function() {
 			tasksController.loadTasks();
+			tasksController.loadInitUser();
 		});		
 	});
 }

@@ -76,7 +76,7 @@ public class TaskDAO {
         DataSource dataSource;
         try {
             conn = DBConnection.getCon();
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(task.getRequiredBy());
 
             PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set name=?, dueDate=?, category=?, userId=?, priority=?, status=? where id=?");
