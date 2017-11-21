@@ -40,6 +40,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -57,6 +63,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -83,6 +95,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -99,6 +117,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -128,6 +152,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return task;
@@ -164,6 +194,12 @@ public class TaskDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return tasks;

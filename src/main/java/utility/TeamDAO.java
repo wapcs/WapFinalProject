@@ -30,6 +30,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -45,6 +51,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -62,6 +74,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -86,6 +104,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return team;
@@ -112,6 +136,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return teams;
@@ -145,6 +175,12 @@ public class TeamDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return teamTasks;

@@ -29,6 +29,12 @@ public class UserDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -44,6 +50,12 @@ public class UserDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,6 +72,12 @@ public class UserDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -83,6 +101,12 @@ public class UserDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return user;
@@ -109,6 +133,12 @@ public class UserDAO {
             e.printStackTrace();
         } catch (NamingException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return users;
