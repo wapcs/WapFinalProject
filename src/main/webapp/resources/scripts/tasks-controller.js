@@ -68,7 +68,7 @@ tasksController = function() {
 	
 	function renderTable() {
 		$.each($(taskPage).find('#tblTasks tbody tr'), function(idx, row) {
-			var due = Date.parse($(row).find('[datetime]').text().substring(0,10));
+			var due = Date.parse($(row).find('[datetime]').text());
 			if (due.compareTo(Date.today()) < 0) {
 				$(row).addClass("overdue");
 			} else if (due.compareTo((2).days().fromNow()) <= 0) {
@@ -272,7 +272,7 @@ tasksController = function() {
 			$(taskPage).find("#tblTasks tbody").empty();
 			retrieveTasksServer("", function (tasks) {
                     tasks.sort(function(o1, o2) {
-                        return Date.parse(o1.dueDate.substring(0,10)).compareTo(Date.parse(o2.dueDate.substring(0, 10)));
+                        return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
                     });
                     $.each(tasks, function(index, task) {
                         if (!task.complete) {
