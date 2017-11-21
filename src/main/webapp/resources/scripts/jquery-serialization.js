@@ -2,7 +2,7 @@
 	$.fn.extend({
 		toObject: function() {
 		    var result = {}
-			$.each(this.serializeArray(), function(i, v) { 
+			$.each(this.serializeArray(), function(i, v) {
 				result[v.name] = v.value;
 			});
 			return result;

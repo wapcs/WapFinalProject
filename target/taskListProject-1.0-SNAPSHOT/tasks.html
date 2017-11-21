@@ -28,6 +28,13 @@
 					name="requiredBy" />
 			</div>
 			<div>
+				<!--<label>Priority</label> <input type="text" name="priority" min="0" max="10" required="required" pattern="^\d+$" step="1">-->
+				<label>Priority</label> <input type="number" name="priority" required="required" step="1" min="1" max="10">
+			</div>
+            <div>
+				<label>Choose user</label> <select name="userId" id="userSelect"></select>
+			</div>
+			<div>
 				<label>Category</label> <select name="category">
 					<option value="Personal">Personal</option>
 					<option value="Work">Work</option>
@@ -42,9 +49,11 @@
 	<section>
 		<table id="tblTasks">
 			<colgroup>
-				<col width="40%">
-				<col width="15%">
-				<col width="15%">
+				<col width="30%">
+				<col width="10%">
+				<col width="10%">
+				<col width="10%">
+				<col width="10%">
 				<col width="30%">
 			</colgroup>
 			<thead>
@@ -52,6 +61,8 @@
 					<th>Name</th>
 					<th>Due</th>
 					<th>Category</th>
+					<th>Priority</th>
+					<th>User Id</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -60,9 +71,18 @@
 		</table>
 		<nav>
 			<a href="#" id="btnAddTask">Add task</a>
+			<a href="#" id="btnAddUser">Add user</a>
 			<a href="#" id="btnRetrieveTasks">Retrieve tasks from server</a>
 		</nav>
 	</section>
+    <section id="userCreation" class="not">
+		<form id="userForm">
+			User id: <input type="text" name="userId">
+			User name: <input type="text" name="userName">
+			<input type="submit" id="saveUser" value="Save user">
+		</form>
+
+    </section>
 	</main>
 	<footer>You have <span id="taskCount"></span> tasks</footer>
 </body>
@@ -100,6 +120,8 @@ if (window.indexedDB) {
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${task}</td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}><time datetime="${requiredBy}">${requiredBy}</time></td>
 	<td {{if complete == true}}class="taskCompleted"{{/if}}>${category}</td>
+	<td {{if complete == true}}class="taskCompleted"{{/if}}>${priority}</td>
+	<td {{if complete == true}}class="taskCompleted"{{/if}}>${userId}</td>
 	<td>
 		<nav>
 			{{if complete != true}}			

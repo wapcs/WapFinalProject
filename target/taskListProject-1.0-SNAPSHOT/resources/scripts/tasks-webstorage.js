@@ -34,7 +34,8 @@ storageEngine = function() {
 	        }	
 	        if (!obj.id) { 
 	            obj.id = $.now(); 
-	        } 
+	        }
+	        console.log("id", obj);
 	        var storageItem = getStorageObject(type); 
 	        storageItem[obj.id] = obj; 
 	        localStorage.setItem(type, JSON.stringify(storageItem)); 

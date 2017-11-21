@@ -53,7 +53,7 @@ tasksController = function() {
 	}
 	
 	function clearTask() {
-		$(taskPage).find('form').fromObject({});
+		$(taskPage).find('#taskForm').fromObject({});
 	}
 	
 	function renderTable() {
@@ -77,14 +77,26 @@ tasksController = function() {
 					storageEngine.initObjectStore('task', function() {
 						callback();
 					}, errorLogger) 
-				}, errorLogger);	 				
-				$(taskPage).find('[required="required"]').prev('label').append( '<span>*</span>').children( 'span').addClass('required');
+				}, errorLogger);
+                storageEngine.init(function() {
+                    storageEngine.initObjectStore('user', function() {
+                        callback();
+                    }, errorLogger)
+                }, errorLogger);
+                $(taskPage).find('[required="required"]').prev('label').append( '<span>*</span>').children( 'span').addClass('required');
 				$(taskPage).find('tbody tr:even').addClass('even');
 				
 				$(taskPage).find('#btnAddTask').click(function(evt) {
 					evt.preventDefault();
+                    tasksController.loadUsers();
 					$(taskPage).find('#taskCreation').removeClass('not');
 				});
+
+
+                $(taskPage).find('#btnAddUser').click(function(evt) {
+                    evt.preventDefault();
+                    $(taskPage).find('#userCreation').removeClass('not');
+                });
 
                 /**	 * 11/19/17kl        */
                 $(taskPage).find('#btnRetrieveTasks').click(function(evt) {
@@ -112,7 +124,7 @@ tasksController = function() {
 					function(evt) { 
 						$(taskPage).find('#taskCreation').removeClass('not');
 						storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
-							$(taskPage).find('form').fromObject(task);
+							$(taskPage).find('#taskForm').fromObject(task);
 						}, errorLogger);
 					}
 				);
@@ -133,10 +145,10 @@ tasksController = function() {
 				
 				$(taskPage).find('#saveTask').click(function(evt) {
 					evt.preventDefault();
-					if ($(taskPage).find('form').valid()) {
-                        console.log("form");
-						var task = $(taskPage).find('form').toObject();
-                        console.log("task ",task);
+					if ($(taskPage).find('#taskForm').valid()) {
+						console.log("before toObject", $(taskPage).find('#taskForm'));
+						var task = $(taskPage).find('#taskForm').toObject();
+						console.log(task);
                         task.method="add";
                         retrieveTasksServer(task);
 						// storageEngine.save('task', task, function() {
@@ -148,6 +160,21 @@ tasksController = function() {
 						// }, errorLogger);
 					}
 				});
+
+				$(taskPage).find('#saveUser').click(function (evt) {
+					evt.preventDefault();
+					if ($(taskPage).find('#userForm').valid()) {
+                        var user = $(taskPage).find('#userForm').toObject();
+                        console.log("USEEEEEEEEEEER when save", user);
+                        storageEngine.save('user', user, function() {
+                            alert("is called");
+                            console.log("user in success", user);
+                            tasksController.loadUsers();
+                            $(taskPage).find('#userForm').fromObject({});
+                            $(taskPage).find('#userCreation').addClass('not');
+                        }, errorLogger);
+					}
+                });
 				initialised = true;
 			}
 		},
@@ -168,10 +195,8 @@ tasksController = function() {
             });
 		},
 		loadTasks : function() {
-            console.log("loadtasl ");
 			$(taskPage).find('#tblTasks tbody').empty();
 			storageEngine.findAll('task', function(tasks) {
-                console.log("loadtasl task",tasks);
 				tasks.sort(function(o1, o2) {
 					return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
 				});
@@ -184,6 +209,15 @@ tasksController = function() {
 					renderTable();
 				});
 			}, errorLogger);
-		} 
+		},
+		loadUsers: function () {
+			console.log("load user");
+			storageEngine.findAll('user', function(users) {
+				console.log("USERRRRRRRSSS", users);
+				$.each(users, function(index, user) {
+                    $("#taskForm select").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
+				});
+			}, errorLogger);
+        }
 	} 
 }();
