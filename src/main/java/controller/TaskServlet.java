@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/TaskServlet")
@@ -80,8 +81,13 @@ public class TaskServlet extends HttpServlet {
         } else {
 
             taskList = taskDAO.getAllTask(sortType);
-            System.out.println("taskList="+taskList.size()+" sort:"+sortType+" method:"+request.getParameter("method"));
-            System.out.println();
+            if("priority".equals(sortType)) {
+                taskList.sort(Comparator.comparing(Task::getPriority));
+            }else{
+                taskList.sort(Comparator.comparing(Task::getRequiredBy));
+            }
+//            System.out.println("taskList="+taskList.size()+" sort:"+sortType+" method:"+request.getParameter("method"));
+//            taskList.stream().forEach(x->System.out.println("name:"+x.getTask()));
             JSONtasks = new Gson().toJson(taskList);
         }
 

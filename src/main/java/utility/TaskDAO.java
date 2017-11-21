@@ -141,10 +141,10 @@ public class TaskDAO {
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement statement = conn.prepareStatement("Select * from tasks order by ?");
-            System.out.println("sortType="+sortType);
+            System.out.println("sortTypeFromDAO1="+sortType);
             if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
                 sortType ="priority";
-            System.out.println("sortType1="+sortType);
+            System.out.println("sortTypeFromDAO2="+sortType);
             statement.setString(1,sortType);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
