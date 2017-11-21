@@ -12,15 +12,29 @@ tasksController = function() {
 	 * currently just testing this and writing return value out to console
 	 * 111917kl
      */
-	function retrieveTasksServer() {
+    // function retrieveTasksServer() {
+    //     $.ajax("TaskServlet", {
+    //         "type": "get",
+		// 	dataType: "json"
+    //         // "data": {
+    //         //     "first": first,
+    //         //     "last": last
+    //         // }
+    //     }).done(displayTasksServer.bind()); //need reference to the tasksController object
+    // }
+    function retrieveTasksServer(data) {
         $.ajax("TaskServlet", {
             "type": "get",
-			dataType: "json"
+            dataType: "json",
+			data: data
             // "data": {
             //     "first": first,
             //     "last": last
             // }
-        }).done(displayTasksServer.bind()); //need reference to the tasksController object
+        }).done(displayTasksServer.bind())
+			.fail(function(err) {
+				console.log("ERRORO ON jsp ", err);
+			}); //need reference to the tasksController object
     }
 
     /**
@@ -123,13 +137,15 @@ tasksController = function() {
                         console.log("form");
 						var task = $(taskPage).find('form').toObject();
                         console.log("task ",task);
-						storageEngine.save('task', task, function() {
-
-							$(taskPage).find('#tblTasks tbody').empty();
-							tasksController.loadTasks();
-							clearTask();
-							$(taskPage).find('#taskCreation').addClass('not');
-						}, errorLogger);
+                        task.method="add";
+                        retrieveTasksServer(task);
+						// storageEngine.save('task', task, function() {
+                        //
+						// 	$(taskPage).find('#tblTasks tbody').empty();
+						// 	tasksController.loadTasks();
+						// 	clearTask();
+						// 	$(taskPage).find('#taskCreation').addClass('not');
+						// }, errorLogger);
 					}
 				});
 				initialised = true;

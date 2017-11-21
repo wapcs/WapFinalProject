@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ea741d2-a544-4c1e-94fa-5b3b790c2ff9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/utility/UserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controller/TaskServlet.class" afterPath="$PROJECT_DIR$/target/classes/controller/TaskServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/Task.class" afterPath="$PROJECT_DIR$/target/classes/model/Task.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/WEB-INF/classes/controller/TaskServlet.class" afterPath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/WEB-INF/classes/controller/TaskServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/WEB-INF/classes/model/Task.class" afterPath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/WEB-INF/classes/model/Task.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js" afterPath="$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/resources/scripts/tasks-controller.js" afterPath="$PROJECT_DIR$/target/taskListProject-1.0-SNAPSHOT/resources/scripts/tasks-controller.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,8 +25,8 @@
       <file leaf-file-name="tasks.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/tasks.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="53" column="37" lean-forward="true" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+            <state relative-caret-position="165">
+              <caret line="89" column="4" lean-forward="false" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -40,8 +35,8 @@
       <file leaf-file-name="TaskServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/TaskServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="281">
+              <caret line="52" column="44" lean-forward="true" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -51,7 +46,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/utility/TaskDAO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
-              <caret line="173" column="13" lean-forward="true" selection-start-line="173" selection-start-column="13" selection-end-line="173" selection-end-column="13" />
+              <caret line="173" column="13" lean-forward="false" selection-start-line="173" selection-start-column="13" selection-end-line="173" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1511226626961" expanded="true" signature="884:972" ph="INSERT INTO TASKS... " />
@@ -71,14 +66,14 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/utility/UserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2040">
-              <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+              <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1511232895583" expanded="true" signature="691:727" ph="INSERT INTO USER... " />
-                <marker date="1511232895583" expanded="true" signature="1267:1295" ph="DELETE from " />
-                <marker date="1511232895583" expanded="true" signature="1819:1856" ph="UPDATE USER " />
-                <marker date="1511232895583" expanded="true" signature="2466:2495" ph="Select * fro... USER" />
-                <marker date="1511232895583" expanded="true" signature="3335:3353" ph="Select * fro... user" />
+                <marker date="1511234976288" expanded="true" signature="691:727" ph="INSERT INTO USER... " />
+                <marker date="1511234976288" expanded="true" signature="1267:1295" ph="DELETE from " />
+                <marker date="1511234976288" expanded="true" signature="1819:1856" ph="UPDATE USER " />
+                <marker date="1511234976288" expanded="true" signature="2466:2495" ph="Select * fro... USER" />
+                <marker date="1511234976288" expanded="true" signature="3335:3353" ph="Select * fro... user" />
               </folding>
             </state>
           </provider>
@@ -87,8 +82,8 @@
       <file leaf-file-name="tasks-controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="65" column="37" lean-forward="false" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
+            <state relative-caret-position="238">
+              <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -118,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/utility/DBConnection.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+              <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,10 +163,10 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/TaskServlet.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/tasks.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-indexeddb.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js" />
         <option value="$PROJECT_DIR$/src/main/java/utility/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/utility/UserDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js" />
       </list>
     </option>
   </component>
@@ -233,31 +228,7 @@
               <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utility" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
@@ -265,6 +236,24 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WapFinalProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WapFinalProject" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -480,7 +469,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24910000" />
+    <option name="totallyTimeSpent" value="26322000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
@@ -503,7 +492,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14893617" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.011456628" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24357034" sideWeight="0.9177632" order="0" side_tool="false" content_ui="combo" />
@@ -546,6 +535,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.gitignore" />
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -554,14 +546,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/jquery.validate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/jquery-serialization.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -729,6 +713,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="28" column="68" lean-forward="false" selection-start-line="28" selection-start-column="68" selection-end-line="28" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -788,6 +773,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="28" column="68" lean-forward="true" selection-start-line="28" selection-start-column="68" selection-end-line="28" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -847,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="65" column="37" lean-forward="false" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/jquery-tmpl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7831">
@@ -893,6 +871,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
           <caret line="80" column="35" lean-forward="true" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -921,7 +900,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/utility/DBConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -941,13 +920,13 @@
         <state relative-caret-position="170">
           <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding>
-            <element signature="e#109#110#0" expanded="true" />
-            <element signature="e#134#135#0" expanded="true" />
-            <element signature="e#200#201#0" expanded="true" />
-            <element signature="e#233#234#0" expanded="true" />
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#309#310#0" expanded="true" />
-            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#109#110#0" expanded="false" />
+            <element signature="e#134#135#0" expanded="false" />
+            <element signature="e#200#201#0" expanded="false" />
+            <element signature="e#233#234#0" expanded="false" />
+            <element signature="e#261#262#0" expanded="false" />
+            <element signature="e#309#310#0" expanded="false" />
+            <element signature="e#349#350#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -955,14 +934,14 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/utility/UserDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
-          <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1511232895583" expanded="true" signature="691:727" ph="INSERT INTO USER... " />
-            <marker date="1511232895583" expanded="true" signature="1267:1295" ph="DELETE from " />
-            <marker date="1511232895583" expanded="true" signature="1819:1856" ph="UPDATE USER " />
-            <marker date="1511232895583" expanded="true" signature="2466:2495" ph="Select * fro... USER" />
-            <marker date="1511232895583" expanded="true" signature="3335:3353" ph="Select * fro... user" />
+            <marker date="1511234976288" expanded="true" signature="691:727" ph="INSERT INTO USER... " />
+            <marker date="1511234976288" expanded="true" signature="1267:1295" ph="DELETE from " />
+            <marker date="1511234976288" expanded="true" signature="1819:1856" ph="UPDATE USER " />
+            <marker date="1511234976288" expanded="true" signature="2466:2495" ph="Select * fro... USER" />
+            <marker date="1511234976288" expanded="true" signature="3335:3353" ph="Select * fro... user" />
           </folding>
         </state>
       </provider>
@@ -970,7 +949,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/utility/TaskDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
-          <caret line="173" column="13" lean-forward="true" selection-start-line="173" selection-start-column="13" selection-end-line="173" selection-end-column="13" />
+          <caret line="173" column="13" lean-forward="false" selection-start-line="173" selection-start-column="13" selection-end-line="173" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1511226626961" expanded="true" signature="884:972" ph="INSERT INTO TASKS... " />
@@ -985,18 +964,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/TaskServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="281">
+          <caret line="52" column="44" lean-forward="true" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/scripts/tasks-controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="35" column="27" lean-forward="false" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/tasks.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="53" column="37" lean-forward="true" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+        <state relative-caret-position="165">
+          <caret line="89" column="4" lean-forward="false" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
           <folding />
         </state>
       </provider>
