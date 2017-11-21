@@ -21,8 +21,7 @@ public class UserDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO USER(username) values(?)");
             statement.setString(1, user.getUserName());
             statement.executeUpdate();
@@ -37,8 +36,7 @@ public class UserDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("DELETE from User  where id=?");
             statement.setInt(1, userId);
             statement.executeUpdate();
@@ -53,8 +51,7 @@ public class UserDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("UPDATE USER set userName=? where id=?");
             statement.setString(1, user.getUserName());
             statement.setInt(2, user.getId());
@@ -71,8 +68,7 @@ public class UserDAO {
         DataSource dataSource;
         User user = null;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from USER where id=?");
             statement.setInt(1, userId);
             ResultSet rs = statement.executeQuery();
@@ -99,8 +95,7 @@ public class UserDAO {
         List<User> users = new ArrayList<>();
         User user= null;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from user");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

@@ -221,7 +221,17 @@ tasksController = function() {
                         }, errorLogger);
 					}
                 });
-				initialised = true;
+
+		        $("#sortDue").click(function (evt) {
+                    console.log("sortDue");
+                    console.log($(taskPage).find('#tblTasks tbody tr'));
+				});
+
+                $("#sortPriority").click(function (evt) {
+                    console.log($(taskPage).find('#tblTasks tbody tr'));
+                });
+
+            	initialised = true;
 			}
 		},
         /**
@@ -275,6 +285,7 @@ tasksController = function() {
                     $("#taskForm select").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
 				});
 			}, errorLogger);
-        }
+        },
+
 	} 
 }();

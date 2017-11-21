@@ -24,8 +24,7 @@ public class TaskDAO {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             Date parsed = format.parse(task.getDueDate());
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO TASKS(name, dueDate, category, userId, priority, status) values(?,?,?,?,?,?)");
             statement.setString(1, task.getTask());
             statement.setDate(2, new java.sql.Date(parsed.getTime()));
@@ -49,8 +48,7 @@ public class TaskDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("DELETE from TASKS  where id=?");
             statement.setInt(1, taskid);
             statement.executeUpdate();
@@ -65,8 +63,7 @@ public class TaskDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             Date parsed = format.parse(task.getDueDate());
 
@@ -92,8 +89,7 @@ public class TaskDAO {
         Connection conn = null;
         DataSource dataSource;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set status=? where id=?");
             statement.setBoolean(1, true);
             statement.setInt(2, taskId);
@@ -110,8 +106,7 @@ public class TaskDAO {
         DataSource dataSource;
         Task task = null;
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from tasks where id=?");
             statement.setInt(1, taskid);
             ResultSet rs = statement.executeQuery();
@@ -143,8 +138,7 @@ public class TaskDAO {
         Task task = null;
         List<Task> tasks = new ArrayList<>();
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from tasks");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -174,8 +168,7 @@ public class TaskDAO {
         Task task = null;
         List<Task> tasks = new ArrayList<>();
         try {
-            DBConnection dbConnection = new DBConnection();
-            conn = dbConnection.getCon();
+            conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("Select * from tasks where ");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

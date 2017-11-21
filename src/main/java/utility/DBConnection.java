@@ -12,12 +12,13 @@ import java.sql.SQLException;
 
 public class DBConnection {
     Context ctx = null;
-    Connection con = null;
+
     Statement stmt = null;
     ResultSet rs = null;
 
-    public Connection getCon() throws NamingException, SQLException {
+    public static Connection getCon() throws NamingException, SQLException {
         Context initContext = new InitialContext();
+        Connection con = null;
         Context envContext = (Context) initContext.lookup("java:comp/env");
         DataSource ds = (DataSource) envContext.lookup("jdbc/taskdb");
         con = ds.getConnection();
