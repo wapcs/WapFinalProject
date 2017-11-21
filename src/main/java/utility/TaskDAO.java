@@ -23,7 +23,7 @@ public class TaskDAO {
         DataSource dataSource;
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            Date parsed = format.parse(task.getDueDate());
+            Date parsed = format.parse(task.getRequredBy());
             conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO TASKS(name, dueDate, category, userId, priority, status) values(?,?,?,?,?,?)");
             statement.setString(1, task.getTask());
@@ -65,7 +65,7 @@ public class TaskDAO {
         try {
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            Date parsed = format.parse(task.getDueDate());
+            Date parsed = format.parse(task.getRequredBy());
 
             PreparedStatement statement = conn.prepareStatement("UPDATE TASKS set name=?, dueDate=?, category=?, userId=?, priority=?, status=? where id=?");
             statement.setString(1, task.getTask());
@@ -116,7 +116,7 @@ public class TaskDAO {
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
                 System.out.println(rs.getString("name"));
-                task.setDueDate(rs.getString("dueDate"));
+                task.setRequredBy(rs.getString("dueDate"));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
@@ -145,7 +145,7 @@ public class TaskDAO {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                task.setDueDate(rs.getString("dueDate"));
+                task.setRequredBy(rs.getString("dueDate"));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
@@ -175,7 +175,7 @@ public class TaskDAO {
                 task = new Task();
                 task.setId(rs.getInt("id"));
                 task.setTask(rs.getString("name"));
-                task.setDueDate(rs.getString("dueDate"));
+                task.setRequredBy(rs.getString("dueDate"));
                 task.setCategory(rs.getString("category"));
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
