@@ -1,6 +1,7 @@
 tasksController = function() { 
 	
 	function errorLogger(errorCode, errorMessage) {
+	    console.log(errorCode, errorMessage);
 		console.log(errorCode +':'+ errorMessage);
 	}
 	
@@ -22,20 +23,36 @@ tasksController = function() {
     //         // }
     //     }).done(displayTasksServer.bind()); //need reference to the tasksController object
     // }
-    function retrieveTasksServer(data) {
+    var retrieveTasksServer = function(data, successCallback) {
         $.ajax("TaskServlet", {
             "type": "get",
             dataType: "json",
 			data: data
-            // "data": {
-            //     "first": first,
-            //     "last": last
-            // }
-        }).done(displayTasksServer.bind())
+        }).success(successCallback)
 			.fail(function(err) {
 				console.log("ERRORO ON jsp ", err);
 			}); //need reference to the tasksController object
-    }
+    };
+    var retrieveTaskById = function(id, successCallback) {
+    	$.ajax("TaskServlet", {
+    		"type": "post",
+			dataType: "json",
+			data: {
+    			id: id
+			}
+		}).success(successCallback)
+			.fail(errorLogger);
+	};
+    var fetchUser = function(data, successCallback) {
+        $.ajax("UserServlet", {
+            "type": "get",
+            dataType: "json",
+            data: data
+        }).success(successCallback)
+            .fail(function(err) {
+                console.log("ERRORO ON jsp ", err);
+            }); //need reference to the tasksController object
+    };
 
     /**
 	 * 111917kl
@@ -43,7 +60,7 @@ tasksController = function() {
      * @param data
      */
     function displayTasksServer(data) { //this needs to be bound to the tasksController -- used bind in retrieveTasksServer 111917kl
-    	console.log(data);
+    	console.log("displayTasksServer", data);
         tasksController.loadServerTasks(data);
     }
 	
@@ -73,11 +90,11 @@ tasksController = function() {
 				callback()
 			} else {
 				taskPage = page;
-				storageEngine.init(function() {
-					storageEngine.initObjectStore('task', function() {
-						callback();
-					}, errorLogger) 
-				}, errorLogger);
+				// storageEngine.init(function() {
+				// 	storageEngine.initObjectStore('task', function() {
+				// 		callback();
+				// 	}, errorLogger)
+				// }, errorLogger);
                 storageEngine.init(function() {
                     storageEngine.initObjectStore('user', function() {
                         callback();
@@ -88,7 +105,7 @@ tasksController = function() {
 				
 				$(taskPage).find('#btnAddTask').click(function(evt) {
 					evt.preventDefault();
-                    tasksController.loadUsers();
+					fetchUser("", tasksController.loadUsers);
 					$(taskPage).find('#taskCreation').removeClass('not');
 				});
 
@@ -102,7 +119,9 @@ tasksController = function() {
                 $(taskPage).find('#btnRetrieveTasks').click(function(evt) {
                     evt.preventDefault();
                     console.log('making ajax call');
-                    retrieveTasksServer();
+                    retrieveTasksServer("",function(data) {
+                        tasksController.loadServerTasks(data);
+					});
                 });
 				
 				$(taskPage).find('#tblTasks tbody').on('click', 'tr', function(evt) {
@@ -110,22 +129,49 @@ tasksController = function() {
 				});	
 				
 				$(taskPage).find('#tblTasks tbody').on('click', '.deleteRow', 
-					function(evt) { 					
-						storageEngine.delete('task', $(evt.target).data().taskId, 
-							function() {
-								$(evt.target).parents('tr').remove(); 
-								taskCountChanged();
-							}, errorLogger);
+					function(evt) {
+						var data = {
+							id: $(evt.target).data().taskId,
+							method: "delete"
+						};
+                        retrieveTasksServer(data,
+                            function() {
+                                $(evt.target).parents('tr').remove();
+                                taskCountChanged();
+                            });
+
+						// storageEngine.delete('task', $(evt.target).data().taskId,
+						// 	function() {
+						// 		$(evt.target).parents('tr').remove();
+						// 		taskCountChanged();
+						// 	}, errorLogger);
 						
 					}
 				);
 				
 				$(taskPage).find('#tblTasks tbody').on('click', '.editRow', 
-					function(evt) { 
+					function(evt) {
+						var data = {
+							id: $(evt.target).data().taskId,
+							method: "getTask"
+						};
 						$(taskPage).find('#taskCreation').removeClass('not');
-						storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
-							$(taskPage).find('#taskForm').fromObject(task);
-						}, errorLogger);
+
+                        retrieveTasksServer(data, function(task) {
+                        console.log("TASK in edit row", task);
+                            // fetchUser("", function (users, tasks) {
+                        	 //    tasksController.loadUsers(users);
+                            // });
+                            $(taskPage).find('#taskForm').fromObject(task);
+						});
+
+
+                        // retrieveTaskById(data, function(task) {
+                        //     $(taskPage).find('#taskForm').fromObject(task);
+                        // });
+						// storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
+						// 	$(taskPage).find('#taskForm').fromObject(task);
+						// }, errorLogger);
 					}
 				);
 				
@@ -134,13 +180,31 @@ tasksController = function() {
 					clearTask();
 				});
 				
-				$(taskPage).find('#tblTasks tbody').on('click', '.completeRow', function(evt) { 					
-					storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
-						task.complete = true;
-						storageEngine.save('task', task, function() {
-							tasksController.loadTasks();
-						},errorLogger);
-					}, errorLogger);
+				$(taskPage).find('#tblTasks tbody').on('click', '.completeRow', function(evt) {
+                    var task = {
+                    	id: $(evt.target).data().taskId,
+						method: "complete"
+					};
+					retrieveTasksServer(task, function (tasks) {
+                        tasksController.loadServerTasks(tasks);
+                    });
+                    // retrieveTaskById($(evt.target).data().taskId, function(task) {
+                    //     task.complete = true;
+                    //     task.method = "complete";
+                    //     console.log("FROOOOOOOM" , task);
+						// retrieveTasksServer(task, function () {
+                    //         tasksController.loadTasks();
+                    //     });
+                    //
+                    // });
+					// storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
+					// 	task.complete = true;
+                    //
+                    //
+					// 	storageEngine.save('task', task, function() {
+					// 		tasksController.loadTasks();
+					// 	},errorLogger);
+					// }, errorLogger);
 				});
 				
 				$(taskPage).find('#saveTask').click(function(evt) {
@@ -149,8 +213,18 @@ tasksController = function() {
 						console.log("before toObject", $(taskPage).find('#taskForm'));
 						var task = $(taskPage).find('#taskForm').toObject();
 						console.log(task);
-                        task.method="add";
-                        retrieveTasksServer(task);
+                        if(task.id !== "") {
+                            task.method = "edit";
+						}
+						else {
+                            task.method="add";
+						}
+                        retrieveTasksServer(task, function(tasks) {
+                            $(taskPage).find('#tblTasks tbody').empty();
+                            tasksController.loadServerTasks(tasks);
+                            clearTask();
+                            $(taskPage).find('#taskCreation').addClass('not');
+						});
 						// storageEngine.save('task', task, function() {
                         //
 						// 	$(taskPage).find('#tblTasks tbody').empty();
@@ -165,17 +239,45 @@ tasksController = function() {
 					evt.preventDefault();
 					if ($(taskPage).find('#userForm').valid()) {
                         var user = $(taskPage).find('#userForm').toObject();
-                        console.log("USEEEEEEEEEEER when save", user);
-                        storageEngine.save('user', user, function() {
-                            alert("is called");
-                            console.log("user in success", user);
-                            tasksController.loadUsers();
+                        user.method = "add";
+                        fetchUser(user, function(users) {
+                            tasksController.loadUsers(users);
                             $(taskPage).find('#userForm').fromObject({});
                             $(taskPage).find('#userCreation').addClass('not');
-                        }, errorLogger);
+                        });
+                        // storageEngine.save('user', user, function() {
+                        //     alert("is called");
+                        //     tasksController.loadUsers();
+                        //     $(taskPage).find('#userForm').fromObject({});
+                        //     $(taskPage).find('#userCreation').addClass('not');
+                        // }, errorLogger);
 					}
                 });
-				initialised = true;
+
+                $("#sortDue").click(function (evt) {
+                    console.log("sortDue");
+                    console.log($(taskPage).find('#tblTasks tbody tr'));
+                    var data = {
+                        sortType: "dueDate"
+                    }
+                    retrieveTasksServer(data, function(tasks) {
+                        $(taskPage).find('#tblTasks tbody').empty();
+                        tasksController.loadServerTasks(tasks);
+                    });
+                });
+
+                $("#sortPriority").click(function (evt) {
+                    console.log($(taskPage).find('#tblTasks tbody tr'));
+                    var data = {
+                        sortType: "priority"
+                    }
+                    retrieveTasksServer(data, function(tasks) {
+                        $(taskPage).find('#tblTasks tbody').empty();
+                        tasksController.loadServerTasks(tasks);
+                    });
+                });
+
+            	initialised = true;
 			}
 		},
         /**
@@ -191,33 +293,38 @@ tasksController = function() {
                 $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
                 taskCountChanged();
                 console.log('about to render table with server tasks');
-                //renderTable(); --skip for now, this just sets style class for overdue tasks 111917kl
+                renderTable(); // --skip for now, this just sets style class for overdue tasks 111917kl
             });
 		},
-		loadTasks : function() {
-			$(taskPage).find('#tblTasks tbody').empty();
-			storageEngine.findAll('task', function(tasks) {
-				tasks.sort(function(o1, o2) {
-					return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-				});
-				$.each(tasks, function(index, task) {
-					if (!task.complete) {
-						task.complete = false;
-					}
-					$('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-					taskCountChanged();
-					renderTable();
-				});
-			}, errorLogger);
+		loadTasks: function() {
+			$(taskPage).find("#tblTasks tbody").empty();
+			retrieveTasksServer("", function (tasks) {
+                    tasks.sort(function(o1, o2) {
+                        return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
+                    });
+                    $.each(tasks, function(index, task) {
+                        if (!task.complete) {
+                            task.complete = false;
+                        }
+                        $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
+                        taskCountChanged();
+                        renderTable();
+                    });
+
+			})
 		},
-		loadUsers: function () {
-			console.log("load user");
-			storageEngine.findAll('user', function(users) {
-				console.log("USERRRRRRRSSS", users);
-				$.each(users, function(index, user) {
-                    $("#taskForm select").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
-				});
-			}, errorLogger);
+        loadInitUser: function() {
+			fetchUser("", function(users) {
+				tasksController.loadUsers(users);
+			});
+
+		},
+		loadUsers: function (users) {
+			$("#taskForm #userSelect").empty();
+            $.each(users, function(index, user) {
+                $("#taskForm #userSelect").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
+            });
         }
+
 	} 
 }();
