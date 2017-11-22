@@ -41,11 +41,17 @@ public class UserServlet extends HttpServlet {
             System.out.println("add method called");
             User user = new User();
             user.setUserName(request.getParameter("userName"));
+            user.setEmail(request.getParameter("email"));
+            user.setPhone(request.getParameter("phone"));
+            user.setLocation(request.getParameter("location"));
             userDAO.addUser(user);
             users = userDAO.getAllUsers();
         } else if ("edit".equals(reqType)) {
             User user = new User();
             user.setUserName(request.getParameter("userName"));
+            user.setEmail(request.getParameter("email"));
+            user.setPhone(request.getParameter("phone"));
+            user.setLocation(request.getParameter("location"));
             user.setId(Integer.parseInt(request.getParameter("id")));
             userDAO.updateUser(user);
             users = userDAO.getAllUsers();

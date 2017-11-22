@@ -22,8 +22,11 @@ public class UserDAO {
         DataSource dataSource;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO USER(username) values(?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO USER(username,email,phone,location) values(?,?,?,?)");
             statement.setString(1, user.getUserName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPhone());
+            statement.setString(4, user.getLocation());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,9 +67,12 @@ public class UserDAO {
         DataSource dataSource;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("UPDATE USER set userName=? where userId=?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE USER set userName=?,email=?,phone=?,location=? where userId=?");
             statement.setString(1, user.getUserName());
-            statement.setInt(2, user.getId());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPhone());
+            statement.setString(4, user.getLocation());
+            statement.setInt(5, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,6 +101,9 @@ public class UserDAO {
                 user = new User();
                 user.setId(rs.getInt("userId"));
                 user.setUserName(rs.getString("userName"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phone"));
+                user.setLocation(rs.getString("location"));
             }
 
         } catch (SQLException e) {
@@ -126,6 +135,9 @@ public class UserDAO {
                 user = new User();
                 user.setId(rs.getInt("userId"));
                 user.setUserName(rs.getString("userName"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phone"));
+                user.setLocation(rs.getString("location"));
                 users.add(user);
             }
 
