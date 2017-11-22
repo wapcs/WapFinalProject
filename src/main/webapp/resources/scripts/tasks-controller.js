@@ -306,8 +306,8 @@ tasksController = function() {
 						teamId: team,
 						userId: user
                     };
-                    if(user === "" && team === "") {
 
+                    if((user === "" || user === null) && (team === "" || team === null)) {
 
                         retrieveTasksServer(data, function (tasks) {
                             $(taskPage).find('#tblTasks tbody').empty();
@@ -331,7 +331,7 @@ tasksController = function() {
                         teamId: team,
                         userId: user
                     };
-                    if(user === "" && team === "") {
+                    if((user === "" || user === null) && (team === "" || team === null)) {
 
 
                         retrieveTasksServer(data, function (tasks) {

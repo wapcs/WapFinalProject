@@ -133,7 +133,7 @@ public class TaskDAO {
         Task task = null;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("Select * from tasks where id=?");
+            PreparedStatement statement = conn.prepareStatement("Select t.*, u.username from taskdb.tasks t, taskdb.user u where t.userId =u.userid and  u.userId=?");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             statement.setInt(1, taskid);
             ResultSet rs = statement.executeQuery();
@@ -147,7 +147,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
-                task.setUserName(rs.getString("username"));
+                task.setUserName(rs.getString("userName"));
             }
 
         } catch (SQLException e) {
@@ -174,7 +174,7 @@ public class TaskDAO {
 
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            PreparedStatement statement = conn.prepareStatement("Select t.*, u.username  from tasks t, taskdb.user u where u.userid = t.userId order by ?");
+            PreparedStatement statement = conn.prepareStatement("Select t.*, u.userName  from tasks t, taskdb.user u where u.userid = t.userId order by ?");
             if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
                 sortType ="priority";
             statement.setString(1,sortType);
@@ -188,7 +188,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
-                task.setUserName(rs.getString("username"));
+                task.setUserName(rs.getString("userName"));
                 tasks.add(task);
             }
 
