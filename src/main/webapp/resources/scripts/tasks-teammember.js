@@ -22,7 +22,7 @@ teamController = function () {
         //         // }
         //     }).done(displayTasksServer.bind()); //need reference to the tasksController object
         // }
-    var retrieveTasksServer = function (data, successCallback) {
+    var retrieveTeamServlet = function (data, successCallback) {
             $.ajax("TeamServlet", {
                 "type": "get",
                 dataType: "json",
@@ -43,7 +43,6 @@ teamController = function () {
         }).success(successCallback)
             .fail(errorLogger)
     };
-
     /**
      * 111917kl
      * callback for retrieveTasksServer
@@ -64,49 +63,11 @@ teamController = function () {
     return {
         init: function (page, callback) {
             $('#filterByTeamId').bind("change", teamController.loadTasks());
-        },
-        /**
-         * 111917kl
-         * modification of the loadTasks method to load tasks retrieved from the server
-         */
-        loadServerTasks: function (tasks) {
-            $(taskPage).find('#tblTasks tbody').empty();
-            $.each(tasks, function (index, task) {
-                if (!task.complete) {
-                    task.complete = false;
-                }
-                $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-                taskCountChanged();
-                console.log('about to render table with server tasks');
-                renderTable(); // --skip for now, this just sets style class for overdue tasks 111917kl
-            });
-        },
-        loadTasks: function () {
-            $(taskPage).find("#tblTasks tbody").empty();
-            retrieveTasksServer("", function (tasks) {
-                tasks.sort(function (o1, o2) {
-                    return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-                });
-                $.each(tasks, function (index, task) {
-                    if (!task.complete) {
-                        task.complete = false;
-                    }
-                    $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-                    taskCountChanged();
-                    renderTable();
-                });
-
-            })
-        },
-        loadTeam: function () {
-            var data = {
-                id: $('#filterByTeamId').val(),
-                method: "teamTask"
-            };
-            retrieveTasksServer(data,
-                function(tasks) {
+            $('#filterByTeamId').click(function() {
+                retrieveTeamServlet("", function(tasks) {
                     tasksController.loadServerTasks(tasks);
-                });
+                })
+            })
         },
         loadTeam: function () {
             var data = {
@@ -120,55 +81,6 @@ teamController = function () {
                         $('#filterByTeamId').append( $("<option>").attr("value", v.id).html(v.teamName) );
                     });
                 });
-        },
-        // loadTasks : function() {
-        //    // $(taskPage).find('#tblTasks tbody').empty();
-        //    // $.each(tasks, function (index, task) {
-        //    //     if (!task.complete) {
-        //    //         task.complete = false;
-        //    //     }
-        //    //     $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-        //    //     taskCountChanged();
-        //    //     console.log('about to render table with server tasks');
-        //    //     renderTable(); // --skip for now, this just sets style class for overdue tasks 111917kl
-        //    // });
-        // 	$(taskPage).find('#tblTasks tbody').empty();
-        // 	retrieveTasksServer("", function(tasks) {
-        // 	    console.log("TASKS FROM THE SERVER");
-        //            tasks.sort(function (o1, o2) {
-        //                return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-        //            });
-        //            $.each(tasks, function (index, task) {
-        //                if (!task.complete) {
-        //                    task.complete = false;
-        //                }
-        //                $('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-        //                taskCountChanged();
-        //                renderTable();
-        //            });
-        //        });
-        // 	// storageEngine.findAll('task', function(tasks) {
-        // 	// 	tasks.sort(function(o1, o2) {
-        // 	// 		return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
-        // 	// 	});
-        // 	// 	$.each(tasks, function(index, task) {
-        // 	// 		if (!task.complete) {
-        // 	// 			task.complete = false;
-        // 	// 		}
-        // 	// 		$('#taskRow').tmpl(task).appendTo($(taskPage).find('#tblTasks tbody'));
-        // 	// 		taskCountChanged();
-        // 	// 		renderTable();
-        // 	// 	});
-        // 	// }, errorLogger);
-        // },
-        loadUsers: function () {
-            storageEngine.findAll('user', function (users) {
-                console.log("user",users);
-                console.log("users",users);
-                $.each(users, function (index, user) {
-                    $("#taskForm select").append($("<option>").attr("value", user.id).text(user.id + " - " + user.userName));
-                });
-            }, errorLogger);
         },
 
     }

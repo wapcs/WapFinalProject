@@ -298,7 +298,7 @@ tasksController = function() {
 		},
 		loadTasks: function() {
 			$(taskPage).find("#tblTasks tbody").empty();
-			retrieveTasksServer("", function (tasks) {
+			retrieveTeamServlet("", function (tasks) {
                     tasks.sort(function(o1, o2) {
                         return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
                     });
