@@ -9,7 +9,7 @@ public class Task {
     private int userId;
     private int priority;
     private boolean complete;
-    private String usename;
+    private String userName;
 
     public Task() {
     }
@@ -22,12 +22,12 @@ public class Task {
         this.category = category;
     }
 
-    public String getUsename() {
-        return usename;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setUsename(String usename) {
-        this.usename = usename;
+    public String getUserName() {
+        return userName;
     }
 
     public int getId() {

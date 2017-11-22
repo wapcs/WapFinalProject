@@ -146,7 +146,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
-                task.setUsename(rs.getString("username"));
+                task.setUserName(rs.getString("username"));
             }
 
         } catch (SQLException e) {
@@ -188,7 +188,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
-                task.setUsename(rs.getString("username"));
+                task.setUserName(rs.getString("username"));
                 tasks.add(task);
             }
 
