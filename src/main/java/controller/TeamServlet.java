@@ -41,7 +41,7 @@ public class TeamServlet extends HttpServlet {
             team.setId(Integer.parseInt(request.getParameter("id")));
             team.setTeamName(request.getParameter("teamName"));
             team.setDescription(request.getParameter("description"));
-            teamDAO.addTeam(team);
+            teamDAO.updateTeam(team);
             teamList = teamDAO.getAllTeam();
         } else if ("delete".equals(reqType)) {
             teamDAO.deleteTeam(Integer.parseInt(request.getParameter("id")));

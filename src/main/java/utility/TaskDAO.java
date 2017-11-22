@@ -24,7 +24,6 @@ public class TaskDAO {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(task.getRequiredBy());
-            System.out.println("Parsed " + parsed);
             conn = DBConnection.getCon();
             PreparedStatement statement = conn.prepareStatement("INSERT INTO TASKS(name, dueDate, category, userId, priority, status) values(?,?,?,?,?,?)");
             statement.setString(1, task.getTask());
@@ -173,10 +172,8 @@ public class TaskDAO {
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement statement = conn.prepareStatement("Select t.*, u.username  from tasks t, taskdb.user u where u.userid = t.userId order by ?");
-            System.out.println("sortTypeFromDAO1="+sortType);
             if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
                 sortType ="priority";
-            System.out.println("sortTypeFromDAO2="+sortType);
             statement.setString(1,sortType);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

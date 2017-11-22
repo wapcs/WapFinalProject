@@ -24,7 +24,6 @@ public class TaskServlet extends HttpServlet {
         TaskDAO taskDAO = new TaskDAO();
         Integer id = Integer.parseInt(request.getParameter("id"));
         Task task = taskDAO.getTask(id);
-        System.out.println("taskName:" + task.getTask());
         String JSONtasks;
         JSONtasks = new Gson().toJson(task);
 
@@ -46,7 +45,6 @@ public class TaskServlet extends HttpServlet {
             sortType = request.getParameter("sortType");
         }
         if ("add".equals(reqType)) {
-            System.out.println("add method called");
             Task task = new Task();
             task.setTask(request.getParameter("task"));
             task.setRequiredBy(request.getParameter("requiredBy"));
