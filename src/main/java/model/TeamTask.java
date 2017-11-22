@@ -1,7 +1,7 @@
 package model;
 
 public class TeamTask {
-    private int taskId;
+    private int id;
     private String task;
     private String requiredBy;
     private String category;
@@ -20,8 +20,8 @@ public class TeamTask {
         return teamId;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
+    public void setTaskId(int id) {
+        this.id = id;
     }
 
     public void setTask(String task) {
@@ -54,7 +54,7 @@ public class TeamTask {
 
     public int getTaskId() {
 
-        return taskId;
+        return id;
     }
 
     public String getTask() {
