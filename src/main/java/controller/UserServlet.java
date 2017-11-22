@@ -34,25 +34,26 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("getMethod Called");
         PrintWriter out = response.getWriter();
-        UserDAO tUserDAO  = new UserDAO();
+        UserDAO userDAO  = new UserDAO();
         List<User> users = null;
         String reqType = request.getParameter("method");
         if ("add".equals(reqType)) {
             System.out.println("add method called");
             User user = new User();
             user.setUserName(request.getParameter("userName"));
-            users = tUserDAO.getAllUsers();
+            userDAO.addUser(user);
+            users = userDAO.getAllUsers();
         } else if ("edit".equals(reqType)) {
             User user = new User();
             user.setUserName(request.getParameter("userName"));
             user.setId(Integer.parseInt(request.getParameter("id")));
-            tUserDAO.updateUser(user);
-            users = tUserDAO.getAllUsers();
+            userDAO.updateUser(user);
+            users = userDAO.getAllUsers();
         } else if ("delete".equals(reqType)) {
-            tUserDAO.deleteUser(Integer.parseInt(request.getParameter("id")));
-            users = tUserDAO.getAllUsers();
+            userDAO.deleteUser(Integer.parseInt(request.getParameter("id")));
+            users = userDAO.getAllUsers();
         } else {
-            users = tUserDAO.getAllUsers();
+            users = userDAO.getAllUsers();
         }
 
         String JSONtasks;

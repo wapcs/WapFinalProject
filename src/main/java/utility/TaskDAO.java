@@ -146,6 +146,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
+                task.setUsename(rs.getString("username"));
             }
 
         } catch (SQLException e) {
@@ -171,7 +172,7 @@ public class TaskDAO {
         try {
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            PreparedStatement statement = conn.prepareStatement("Select * from tasks order by ?");
+            PreparedStatement statement = conn.prepareStatement("Select t.*, u.username  from tasks t, taskdb.user u where u.userid = t.userId order by ?");
             System.out.println("sortTypeFromDAO1="+sortType);
             if(!("priority".equals(sortType) || "dueDate".equals(sortType)))
                 sortType ="priority";
@@ -187,6 +188,7 @@ public class TaskDAO {
                 task.setUserId(rs.getInt("userId"));
                 task.setPriority(rs.getInt("priority"));
                 task.setComplete(rs.getBoolean("status"));
+                task.setUsename(rs.getString("username"));
                 tasks.add(task);
             }
 

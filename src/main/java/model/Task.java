@@ -9,15 +9,25 @@ public class Task {
     private int userId;
     private int priority;
     private boolean complete;
+    private String usename;
 
     public Task() {
     }
+
 
     public Task(int id, String task, String dueDate, String category) {
         this.id = id;
         this.task = task;
         this.requiredBy = dueDate;
         this.category = category;
+    }
+
+    public String getUsename() {
+        return usename;
+    }
+
+    public void setUsename(String usename) {
+        this.usename = usename;
     }
 
     public int getId() {
