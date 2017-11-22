@@ -29,7 +29,7 @@ public class TaskDAO {
             statement.setString(1, task.getTask());
             statement.setDate(2, new java.sql.Date(parsed.getTime()));
             statement.setString(3, task.getCategory());
-            statement.setInt(4, task.getId());
+            statement.setInt(4, task.getUserId());
             statement.setInt(5, task.getPriority());
             statement.setBoolean(6, task.isComplete());
             statement.executeUpdate();
@@ -83,7 +83,7 @@ public class TaskDAO {
             statement.setString(1, task.getTask());
             statement.setDate(2, new java.sql.Date(parsed.getTime()));
             statement.setString(3, task.getCategory());
-            statement.setInt(4, task.getId());
+            statement.setInt(4, task.getUserId());
             statement.setInt(5, task.getPriority());
             statement.setBoolean(6, task.isComplete());
             statement.setInt(7, task.getId());
