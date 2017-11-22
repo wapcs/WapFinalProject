@@ -169,6 +169,7 @@ public class TaskDAO {
         Task task = null;
         List<Task> tasks = new ArrayList<>();
         try {
+
             conn = DBConnection.getCon();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             PreparedStatement statement = conn.prepareStatement("Select t.*, u.username  from tasks t, taskdb.user u where u.userid = t.userId order by ?");

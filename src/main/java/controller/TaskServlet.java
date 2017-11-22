@@ -56,6 +56,7 @@ public class TaskServlet extends HttpServlet {
             JSONtasks = new Gson().toJson(taskList);
         } else if ("edit".equals(reqType)) {
             Task task = new Task();
+
             task.setId(Integer.parseInt(request.getParameter("id")));
             task.setTask(request.getParameter("task"));
             task.setRequiredBy(request.getParameter("requiredBy"));
