@@ -70,6 +70,10 @@ public class TeamServlet extends HttpServlet {
         } else if ("userTasks".equals(reqType)) {
             teamTasks = teamDAO.getUserTasks(Integer.parseInt(request.getParameter("id")));
             JSONtasks = new Gson().toJson(teamTasks);
+        }else if ("addMember".equals(reqType)) {
+            teamDAO.addTeamMember(Integer.parseInt(request.getParameter("teamId")),Integer.parseInt(request.getParameter("userId")));
+            teamList = teamDAO.getAllTeam();
+            JSONtasks = new Gson().toJson(teamList);
         } else {
             System.out.println("sortType:"+sortType);
             if (!"".equals(sortType)) {

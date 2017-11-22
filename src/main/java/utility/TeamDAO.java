@@ -40,6 +40,28 @@ public class TeamDAO {
         }
     }
 
+    public void addTeamMember(int teamId, int userId) {
+        Connection conn = null;
+        DataSource dataSource;
+        try {
+            conn = DBConnection.getCon();
+            PreparedStatement statement = conn.prepareStatement("insert into teammember(userid, teamId) values(?,?);");
+            statement.setInt(1, userId);
+            statement.setInt(2, teamId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void deleteTeam(int teamId) {
         Connection conn = null;
         DataSource dataSource;
