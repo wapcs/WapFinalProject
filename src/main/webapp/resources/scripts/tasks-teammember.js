@@ -62,26 +62,24 @@ teamController = function () {
 
     return {
         init: function (page, callback) {
-            $('#filterByTeamId').bind("change", teamController.loadTasks());
-            $('#filterByTeamId').click(function() {
-                retrieveTeamServlet("", function(tasks) {
-                    tasksController.loadServerTasks(tasks);
-                })
-            })
+            $(page).find('#filterByTeamId').bind("change", function(evt) {
+                evt.preventDefault();
+                console.log("is called", evt);
+                tasksController.loadServerTasks(tasks);
+            });
+            // $('#filterByTeamId').click(function(evt) {
+            //     evt.preventDefault();
+            //     console.log($(evt.target).data().taskId);
+            //     retrieveTeamServlet("", function(tasks) {
+            //         tasksController.loadServerTasks(tasks);
+            //     })
+            // })
         },
-        loadTeam: function () {
-            var data = {
-                // id: $(evt.target).data().taskId,
-                method: ""
-            };
-            retrieveTasksServer(data,
-                function(teams) {
-                    $('#filterByTeamId').append( $("<option>").attr("value", 0).html("Choose team") );
-                    $.each(teams, function(i, v) {
-                        $('#filterByTeamId').append( $("<option>").attr("value", v.id).html(v.teamName) );
-                    });
-                });
-        },
+
+        loadTasks: function(tasks) {
+
+        }
+
 
     }
 }();

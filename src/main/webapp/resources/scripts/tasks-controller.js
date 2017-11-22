@@ -53,6 +53,35 @@ tasksController = function() {
                 console.log("ERRORO ON jsp ", err);
             }); //need reference to the tasksController object
     };
+    var retrieveTeamServlet = function (data, successCallback) {
+        $.ajax("TeamServlet", {
+            "type": "get",
+            dataType: "json",
+            data: data
+
+        }).success(successCallback)
+            .fail(function (err) {
+                console.log("ERRORO ON jsp ", err);
+            }); //need reference to the tasksController object
+    };
+    var retrieveTeamById = function (id, successCallback) {
+        $.ajax("TeamServlet", {
+            "type": "post",
+            dataType: "json",
+            data: {
+                id: id
+            }
+        }).success(successCallback)
+            .fail(errorLogger)
+    };
+    var retrieveUsers = function(data, successCallback) {
+        $.ajax("UserServlet", {
+            "type": "get",
+            dataType: "json",
+            data: data
+        }).success(successCallback)
+            .fail(errorLogger)
+	};
 
     /**
 	 * 111917kl
@@ -90,11 +119,6 @@ tasksController = function() {
 				callback()
 			} else {
 				taskPage = page;
-				// storageEngine.init(function() {
-				// 	storageEngine.initObjectStore('task', function() {
-				// 		callback();
-				// 	}, errorLogger)
-				// }, errorLogger);
                 storageEngine.init(function() {
                     storageEngine.initObjectStore('user', function() {
                         callback();
@@ -140,12 +164,6 @@ tasksController = function() {
                                 taskCountChanged();
                             });
 
-						// storageEngine.delete('task', $(evt.target).data().taskId,
-						// 	function() {
-						// 		$(evt.target).parents('tr').remove();
-						// 		taskCountChanged();
-						// 	}, errorLogger);
-						
 					}
 				);
 				
@@ -165,13 +183,6 @@ tasksController = function() {
                             $(taskPage).find('#taskForm').fromObject(task);
 						});
 
-
-                        // retrieveTaskById(data, function(task) {
-                        //     $(taskPage).find('#taskForm').fromObject(task);
-                        // });
-						// storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
-						// 	$(taskPage).find('#taskForm').fromObject(task);
-						// }, errorLogger);
 					}
 				);
 				
@@ -188,23 +199,6 @@ tasksController = function() {
 					retrieveTasksServer(task, function (tasks) {
                         tasksController.loadServerTasks(tasks);
                     });
-                    // retrieveTaskById($(evt.target).data().taskId, function(task) {
-                    //     task.complete = true;
-                    //     task.method = "complete";
-                    //     console.log("FROOOOOOOM" , task);
-						// retrieveTasksServer(task, function () {
-                    //         tasksController.loadTasks();
-                    //     });
-                    //
-                    // });
-					// storageEngine.findById('task', $(evt.target).data().taskId, function(task) {
-					// 	task.complete = true;
-                    //
-                    //
-					// 	storageEngine.save('task', task, function() {
-					// 		tasksController.loadTasks();
-					// 	},errorLogger);
-					// }, errorLogger);
 				});
 				
 				$(taskPage).find('#saveTask').click(function(evt) {
@@ -225,13 +219,6 @@ tasksController = function() {
                             clearTask();
                             $(taskPage).find('#taskCreation').addClass('not');
 						});
-						// storageEngine.save('task', task, function() {
-                        //
-						// 	$(taskPage).find('#tblTasks tbody').empty();
-						// 	tasksController.loadTasks();
-						// 	clearTask();
-						// 	$(taskPage).find('#taskCreation').addClass('not');
-						// }, errorLogger);
 					}
 				});
 
@@ -245,37 +232,112 @@ tasksController = function() {
                             $(taskPage).find('#userForm').fromObject({});
                             $(taskPage).find('#userCreation').addClass('not');
                         });
-                        // storageEngine.save('user', user, function() {
-                        //     alert("is called");
-                        //     tasksController.loadUsers();
-                        //     $(taskPage).find('#userForm').fromObject({});
-                        //     $(taskPage).find('#userCreation').addClass('not');
-                        // }, errorLogger);
-					}
+ 					}
                 });
 
                 $("#sortDue").click(function (evt) {
+                    var team = $('#filterByTeamId').val();
+                    var user = $("#filterByUserId").val();
                     console.log("sortDue");
                     console.log($(taskPage).find('#tblTasks tbody tr'));
                     var data = {
-                        sortType: "dueDate"
+                        sortType: "dueDate",
+						teamId: team,
+						userId: user
+                    };
+                    if(user === "" && team === "") {
+
+
+                        retrieveTasksServer(data, function (tasks) {
+                            $(taskPage).find('#tblTasks tbody').empty();
+                            tasksController.loadServerTasks(tasks);
+                        });
                     }
-                    retrieveTasksServer(data, function(tasks) {
-                        $(taskPage).find('#tblTasks tbody').empty();
-                        tasksController.loadServerTasks(tasks);
-                    });
+                    else {
+                        retrieveTeamServlet(data, function (tasks) {
+                            $(taskPage).find('#tblTasks tbody').empty();
+                            tasksController.loadServerTasks(tasks);
+                        });
+                    }
                 });
 
                 $("#sortPriority").click(function (evt) {
+                    var team = $('#filterByTeamId').val();
+                    var user = $("#filterByUserId").val();
                     console.log($(taskPage).find('#tblTasks tbody tr'));
                     var data = {
-                        sortType: "priority"
+                        sortType: "priority",
+                        teamId: team,
+                        userId: user
+                    };
+                    if(user === "" && team === "") {
+
+
+                        retrieveTasksServer(data, function (tasks) {
+                            $(taskPage).find('#tblTasks tbody').empty();
+                            tasksController.loadServerTasks(tasks);
+                        });
                     }
-                    retrieveTasksServer(data, function(tasks) {
-                        $(taskPage).find('#tblTasks tbody').empty();
-                        tasksController.loadServerTasks(tasks);
-                    });
+                    else {
+                    	retrieveTeamServlet(data, function (tasks) {
+                            $(taskPage).find('#tblTasks tbody').empty();
+                            tasksController.loadServerTasks(tasks);
+                        });
+					}
                 });
+                $('#filterByTeamId').change(function(evt) {
+                    evt.preventDefault();
+                    console.log("IS TEAM ID ", $(this).val());
+                    var value = $(this).val();
+                    var data = "";
+                    if(value !== ""){
+                        data = {
+                            id: value,
+                            method: "teamTask"
+                        };
+                        retrieveTeamServlet(data, function(tasks) {
+                            tasksController.loadServerTasks(tasks);
+                        });
+                        data.method = "users";
+                        retrieveTeamServlet(data, function(users) {
+                            $('#filterByUserId').empty();
+                            $('#filterByUserId').append( $("<option>").attr("value", "").html("All") );
+                            $.each(users, function(i, v) {
+                                $('#filterByUserId').append( $("<option>").attr("value", v.id).html(v.id + " - " + v.userName));
+                            });
+                        });
+
+					}
+					else {
+                    	tasksController.loadTasks();
+                    	retrieveUsers("", function(data) {
+                            $('#filterByUserId').empty();
+                            $('#filterByUserId').append( $("<option>").attr("value", "").html("All") );
+                            $.each(data, function(i, v) {
+                                $('#filterByUserId').append( $("<option>").attr("value", v.id).html(v.id + " - " + v.userName));
+                            });
+						});
+					}
+
+                });
+                $("#filterByUserId").change(function(evt) {
+                	var value = $(this).val();
+                	var data = "";
+                    if(value !== ""){
+                        data = {
+                            id: value,
+                            method: "userTasks"
+                        };
+                        retrieveTeamServlet(data, function(tasks) {
+                            tasksController.loadServerTasks(tasks);
+
+                        });
+
+                    }
+                    else {
+                        tasksController.loadTasks();
+                    }
+				});
 
             	initialised = true;
 			}
@@ -298,7 +360,7 @@ tasksController = function() {
 		},
 		loadTasks: function() {
 			$(taskPage).find("#tblTasks tbody").empty();
-			retrieveTeamServlet("", function (tasks) {
+			retrieveTasksServer("", function (tasks) {
                     tasks.sort(function(o1, o2) {
                         return Date.parse(o1.requiredBy).compareTo(Date.parse(o2.requiredBy));
                     });
@@ -324,6 +386,19 @@ tasksController = function() {
             $.each(users, function(index, user) {
                 $("#taskForm #userSelect").append($("<option>").attr("value",user.id).text(user.id + " - " +user.userName));
             });
+        },
+        loadTeam: function () {
+            var data = {
+                // id: $(evt.target).data().taskId,
+                method: ""
+            };
+            retrieveTeamServlet(data,
+                function(teams) {
+                    $('#filterByTeamId').append( $("<option>").attr("value", "").html("All") );
+                    $.each(teams, function(i, v) {
+                        $('#filterByTeamId').append( $("<option>").attr("value", v.id).html(v.teamName) );
+                    });
+                });
         }
 
 	} 

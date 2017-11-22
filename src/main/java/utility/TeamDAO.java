@@ -3,6 +3,7 @@ package utility;
 import model.Task;
 import model.Team;
 import model.TeamTask;
+import model.User;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -184,5 +185,76 @@ public class TeamDAO {
         }
 
         return teamTasks;
+    }
+
+    public List<TeamTask> getUserTasks(int userId) {
+        Connection conn = null;
+        DataSource dataSource;
+        TeamTask task = null;
+        List<TeamTask> userTasks = new ArrayList<>();
+        try {
+            conn = DBConnection.getCon();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            PreparedStatement statement = conn.prepareStatement("Select t.*, t.id taskId ,u.username , u.userId  from tasks t, taskdb.user u where t.userId =u.userId and u.userid=?");
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                task = new TeamTask();
+                task.setTaskId(rs.getInt("id"));
+                task.setTask(rs.getString("name"));
+                task.setRequiredBy(format.format(rs.getDate("dueDate")));
+                task.setCategory(rs.getString("category"));
+                task.setUserId(rs.getInt("userId"));
+                task.setPriority(rs.getInt("priority"));
+                task.setComplete(rs.getBoolean("status"));
+                task.setUsername(rs.getString("username"));
+                userTasks.add(task);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return userTasks;
+    }
+
+    public List<User> getTeamMembers(int teamId) {
+        Connection conn = null;
+        DataSource dataSource;
+        User user = null;
+        List<User> teamMembers = new ArrayList<>();
+        try {
+            conn = DBConnection.getCon();
+            PreparedStatement statement = conn.prepareStatement("  Select u.*  from  team tm, taskdb.user u, teammember m where tm.id = m.teamId and u.userId=m.userId and tm.id=?");
+            statement.setInt(1, teamId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("userId"));
+                user.setUserName(rs.getString("userName"));
+                teamMembers.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return teamMembers;
     }
 }

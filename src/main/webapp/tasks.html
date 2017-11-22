@@ -104,8 +104,7 @@ function initScreen() {
 		tasksController.init($('#taskPage'), function() {
 			tasksController.loadTasks();
 			tasksController.loadInitUser();
-            teamController.loadTeam();
-            teamController.loadUsers();
+            tasksController.loadTeam();
 		});
 	});
 }
