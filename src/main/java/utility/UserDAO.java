@@ -43,7 +43,7 @@ public class UserDAO {
         DataSource dataSource;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("DELETE from User  where id=?");
+            PreparedStatement statement = conn.prepareStatement("DELETE from User  where userId=?");
             statement.setInt(1, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class UserDAO {
         DataSource dataSource;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("UPDATE USER set userName=? where id=?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE USER set userName=? where userId=?");
             statement.setString(1, user.getUserName());
             statement.setInt(2, user.getId());
             statement.executeUpdate();
@@ -87,13 +87,13 @@ public class UserDAO {
         User user = null;
         try {
             conn = DBConnection.getCon();
-            PreparedStatement statement = conn.prepareStatement("Select * from USER where id=?");
+            PreparedStatement statement = conn.prepareStatement("Select * from USER where userId=?");
             statement.setInt(1, userId);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
                 user = new User();
-                user.setId(rs.getInt("id"));
+                user.setId(rs.getInt("userId"));
                 user.setUserName(rs.getString("userName"));
             }
 
@@ -124,7 +124,7 @@ public class UserDAO {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 user = new User();
-                user.setId(rs.getInt("id"));
+                user.setId(rs.getInt("userId"));
                 user.setUserName(rs.getString("userName"));
                 users.add(user);
             }
