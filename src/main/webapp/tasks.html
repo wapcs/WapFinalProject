@@ -85,6 +85,8 @@
 		<nav>
 			<a href="#" id="btnAddTask">Add task</a>
 			<a href="#" id="btnAddUser">Add user</a>
+			<a href="#" id="btnAddTeam">Add team</a>
+			<a href="#" id="btnAssign">Assign team users</a>
 			<a href="#" id="btnRetrieveTasks">Retrieve tasks from server</a>
 		</nav>
 	</section>
@@ -94,17 +96,40 @@
 			<input type="submit" id="saveUser" value="Save user">
 		</form>
 
-    </section>
+	</section>
+		<section id="teamCreation" class="not">
+			<form id="teamForm">
+				Team name: <input type="text" name="teamName" required>
+				Team description: <input type="text" name="description" required>
+				<input type="submit" id="saveTeam" value="Save team">
+			</form>
+		</section>
+		<section id="teamMemberSec" class="not">
+			<form id="teamMemberForm">
+				<div class="displayBlock">
+					<label>Choose team:</label>
+					<select id="chooseTeam" name="team"></select>
+				</div>
+				<div class="displayBlock">
+					<label>select users</label>
+					<div id="taskUsersList">
+
+					</div>
+				</div>
+				<input type="submit" id="saveTeamMembers" value="Save team members">
+			</form>
+
+		</section>
 	</main>
 	<footer>You have <span id="taskCount"></span> tasks</footer>
 </body>
 <script>
-function initScreen() {
-	$(document).ready(function() {
-		tasksController.init($('#taskPage'), function() {
-			tasksController.loadTasks();
-			tasksController.loadInitUser();
-            tasksController.loadTeam();
+    function initScreen() {
+        $(document).ready(function() {
+            tasksController.init($('#taskPage'), function() {
+                tasksController.loadTasks();
+                tasksController.loadInitUser();
+            tasksController.loadInitTeam();
 		});
 	});
 }
